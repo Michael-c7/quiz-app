@@ -1,41 +1,90 @@
+import React, { useState, useEffect } from 'react';
+import { QuizQuestions } from './QuizQuestions';
+import SetupQuiz from "./SetupQuiz"
+
+
+
 
 function App() {
+  const [questionAmount, setQuestionAmount] = useState(10)
+  const [category, setCategory] = useState(21)
+  const [difficulty, setDifficulty] = useState("easy")
+  const [loading, setLoading] = useState(true)
+  const [quizData, setQuizData] = useState([])
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+  const [amountOfQuestionsAnswered, setAmountOfQuestionsAnswered] = useState(0);
   // https://opentdb.com/api.php?amount=10&category=21&difficulty=easy&type=multiple
+  const baseUrl = "https://opentdb.com/api.php?"
+  const amountUrl = `amount=${questionAmount}&`
+  const categoryUrl = `category=${category}&`
+  const difficultyUrl = `difficulty=${difficulty}&`
+  const typeUrl = `type=multiple`
+
+
+  const fetchQuizData = async url => {
+    try {
+      setLoading(true)
+      const res = await fetch(url)
+      const data = await res.json()
+      setQuizData(data.results)
+      setLoading(false)
+    }catch(error) {
+      setLoading(false)
+      console.log(error)
+    }
+  }  
+
+  const handleData = _ => {
+    if(questionAmount > 50) {
+      setQuestionAmount(50)
+    } else if(questionAmount < 1) {
+      setQuestionAmount(1)
+    }
+    fetchQuizData(`${baseUrl}${amountUrl}${categoryUrl}${difficultyUrl}${typeUrl}`)
+  }
+
+  const whatToRender = _ => {
+    if(quizData.length > 1) {
+      return (
+        <QuizQuestions  
+          quizData={quizData}
+          currentQuestionIndex={currentQuestionIndex}
+          setCurrentQuestionIndex={setCurrentQuestionIndex}
+        />
+      )
+
+    } else if(quizData.length  < 1){
+      return (
+        <SetupQuiz 
+          questionAmount={questionAmount}
+          setQuestionAmount={setQuestionAmount}
+          category={category}
+          setCategory={setCategory}
+          difficulty={difficulty}
+          setDifficulty={setDifficulty}
+          handleData={handleData}
+        />
+      )
+    } else if(quizData.length === amountOfQuestionsAnswered) {
+      console.log(`
+      Now in the DOM place a congratz msg eg:
+
+      Congrats!
+      You answered 40% of questions correctly
+      Play again btn
+      `)
+    }
+  }
+
+
+  // useEffect(() => {
+  //   console.log(quizData[currentQuestionIndex])
+  // }, [quizData])
+
 
   return (
     <main>
-      <section className="setup-quiz">
-        <h1 className="setup-quiz__header">Setup Quiz</h1>
-        <form className="setup-quiz__form">
-          <label className="setup-quiz__question-amount-container">
-            <span>Number of Questions</span>
-            <input type="number" max="50" value="0"/>
-          </label>
-          
-
-          <label className="setup-quiz__question-category-container">
-            <span>Category</span>
-            <select name="categories">
-              <option value="volvo">Volvo</option>
-              <option value="saab">Saab</option>
-              <option value="opel">Opel</option>
-              <option value="audi">Audi</option>
-            </select>
-          </label>
-
-
-          <label className="setup-quiz__question-difficulty-container">
-            <span>Category</span>
-            <select name="categories">
-              <option value="easy">easy</option>
-              <option value="medium">medium</option>
-              <option value="hard">hard</option>
-            </select>
-          </label>
-
-          <button className="start-quiz-btn" type="submit">Start</button>
-        </form>
-      </section> 
+      {whatToRender()}
     </main>
   );
 }
