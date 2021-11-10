@@ -38,7 +38,9 @@ a {
 }
 
 
-
+main {
+  margin:1rem;
+}
 
 
 .setup-quiz {

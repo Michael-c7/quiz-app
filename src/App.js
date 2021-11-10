@@ -12,7 +12,8 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [quizData, setQuizData] = useState([])
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
-  const [amountOfQuestionsAnswered, setAmountOfQuestionsAnswered] = useState(0);
+  const [amountOfCorrectAnswers, setAmountOfCorrectAnswers] = useState(0);
+  // amt of correct answers 
   // https://opentdb.com/api.php?amount=10&category=21&difficulty=easy&type=multiple
   const baseUrl = "https://opentdb.com/api.php?"
   const amountUrl = `amount=${questionAmount}&`
@@ -50,6 +51,8 @@ function App() {
           quizData={quizData}
           currentQuestionIndex={currentQuestionIndex}
           setCurrentQuestionIndex={setCurrentQuestionIndex}
+          amountOfCorrectAnswers={amountOfCorrectAnswers}
+          setAmountOfCorrectAnswers={setAmountOfCorrectAnswers}
         />
       )
 
@@ -65,7 +68,7 @@ function App() {
           handleData={handleData}
         />
       )
-    } else if(quizData.length === amountOfQuestionsAnswered) {
+    } else if(quizData.length === currentQuestionIndex) {
       console.log(`
       Now in the DOM place a congratz msg eg:
 
