@@ -48,12 +48,12 @@ export const QuizQuestions = ({quizData, currentQuestionIndex, setCurrentQuestio
             </div>
 
             <h2 className="quiz-questions__quiz-question-text" dangerouslySetInnerHTML={{__html: question }}></h2>
-            
+
             <ul className="quiz-questions__answers">
                 {shuffleAnswersArray(allAnswers).map((answer, index) => {
                     return (
                         <li className="quiz-questions__answer" key={index}>
-                            <button onClick={() => checkAnswer(answer)}>{answer}</button>
+                            <button onClick={() => checkAnswer(answer)} dangerouslySetInnerHTML={{__html: answer }}></button>
                         </li>
                     )
                 })}
