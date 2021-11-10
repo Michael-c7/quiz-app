@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const QuizQuestions = ({quizData, currentQuestionIndex, setCurrentQuestionIndex, amountOfCorrectAnswers, setAmountOfCorrectAnswers}) => {
+export const QuizQuestions = ({quizData, currentQuestionIndex, setCurrentQuestionIndex, amountOfCorrectAnswers, setAmountOfCorrectAnswers, setShowEndScreen}) => {
     const currentQuestionData = quizData[currentQuestionIndex]
     const {correct_answer,incorrect_answers,question } = currentQuestionData;
     const allAnswers = [correct_answer,...incorrect_answers]
@@ -23,6 +23,15 @@ export const QuizQuestions = ({quizData, currentQuestionIndex, setCurrentQuestio
         if(correct_answer === answer) {
             setAmountOfCorrectAnswers(amountOfCorrectAnswers + 1)
             setCurrentQuestionIndex(currentQuestionIndex + 1)
+        } else {
+            setCurrentQuestionIndex(currentQuestionIndex + 1)
+        }
+    }
+
+    const nextQuestionLogic = _ => {
+        if(quizData.length > 1 && currentQuestionIndex >= quizData.length - 1) {
+            setCurrentQuestionIndex(currentQuestionIndex + 0)
+            setShowEndScreen(true)
         } else {
             setCurrentQuestionIndex(currentQuestionIndex + 1)
         }
@@ -55,7 +64,7 @@ export const QuizQuestions = ({quizData, currentQuestionIndex, setCurrentQuestio
                 })}
             </ul>
 
-            <button className="next-question-btn" onClick={() => setCurrentQuestionIndex(currentQuestionIndex + 1)}>Next Question</button>
+            <button className="next-question-btn" onClick={() => nextQuestionLogic()}>Next Question</button>
         </section>
     )
 }

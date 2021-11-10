@@ -13,6 +13,7 @@ function App() {
   const [quizData, setQuizData] = useState([])
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [amountOfCorrectAnswers, setAmountOfCorrectAnswers] = useState(0);
+  const [showEndScreen, setShowEndScreen] = useState(false)
   // https://opentdb.com/api.php?amount=10&category=21&difficulty=easy&type=multiple
   const baseUrl = "https://opentdb.com/api.php?"
   const amountUrl = `amount=${questionAmount}&`
@@ -52,6 +53,7 @@ function App() {
           setCurrentQuestionIndex={setCurrentQuestionIndex}
           amountOfCorrectAnswers={amountOfCorrectAnswers}
           setAmountOfCorrectAnswers={setAmountOfCorrectAnswers}
+          setShowEndScreen={setShowEndScreen}
         />
       )
 
@@ -88,10 +90,12 @@ function App() {
   //   console.log(quizData[currentQuestionIndex])
   // }, [quizData])
 
+  
+
 
   return (
     <main>
-      {/* {currentQuestionIndex >= quizData.length ? <EndScreen resetGame={resetGame}/> : ""} */}
+      {showEndScreen && <EndScreen resetGame={resetGame} currentQuestionIndex={currentQuestionIndex} amountOfCorrectAnswers={amountOfCorrectAnswers}/>}
       {whatToRender()}
     </main>
   );
