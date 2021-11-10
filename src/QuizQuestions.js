@@ -36,6 +36,7 @@ export const QuizQuestions = ({quizData, currentQuestionIndex, setCurrentQuestio
             setCurrentQuestionIndex(currentQuestionIndex + 1)
         }
     }
+      
 
     return (
         <section className="quiz-questions center">
@@ -46,9 +47,8 @@ export const QuizQuestions = ({quizData, currentQuestionIndex, setCurrentQuestio
                 <span className="total-amt-answered">{currentQuestionIndex}</span> 
             </div>
 
-            <h2 className="quiz-questions__quiz-question-text">
-                {question}
-            </h2>
+            <h2 className="quiz-questions__quiz-question-text" dangerouslySetInnerHTML={{__html: question }}></h2>
+            
             <ul className="quiz-questions__answers">
                 {shuffleAnswersArray(allAnswers).map((answer, index) => {
                     return (
