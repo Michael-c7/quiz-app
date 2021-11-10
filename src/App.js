@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { QuizQuestions } from './QuizQuestions';
 import SetupQuiz from "./SetupQuiz"
 import EndScreen from './EndScreen';
@@ -9,7 +9,7 @@ function App() {
   const [questionAmount, setQuestionAmount] = useState(10)
   const [category, setCategory] = useState(21)
   const [difficulty, setDifficulty] = useState("easy")
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [quizData, setQuizData] = useState([])
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [amountOfCorrectAnswers, setAmountOfCorrectAnswers] = useState(0);
@@ -45,52 +45,42 @@ function App() {
   }
 
   const whatToRender = _ => {
-    if(quizData.length > 1) {
-      return (
-        <QuizQuestions  
-          quizData={quizData}
-          currentQuestionIndex={currentQuestionIndex}
-          setCurrentQuestionIndex={setCurrentQuestionIndex}
-          amountOfCorrectAnswers={amountOfCorrectAnswers}
-          setAmountOfCorrectAnswers={setAmountOfCorrectAnswers}
-          setShowEndScreen={setShowEndScreen}
-        />
-      )
-
-    } else if(quizData.length  < 1){
-      return (
-        <SetupQuiz 
-          questionAmount={questionAmount}
-          setQuestionAmount={setQuestionAmount}
-          category={category}
-          setCategory={setCategory}
-          difficulty={difficulty}
-          setDifficulty={setDifficulty}
-          handleData={handleData}
-        />
-      )
-    } else if(currentQuestionIndex >= quizData.length - 1) {
-      console.log(`
-      Now in the DOM place a congratz msg eg:
-
-      Congrats!
-      You answered 40% of questions correctly
-      Play again btn
-      `)
+    if(loading) {
+      return <h1 className="loading center">Loading Questions</h1>
+    } else {
+      if(quizData.length > 1) {
+        return (
+          <QuizQuestions  
+            quizData={quizData}
+            currentQuestionIndex={currentQuestionIndex}
+            setCurrentQuestionIndex={setCurrentQuestionIndex}
+            amountOfCorrectAnswers={amountOfCorrectAnswers}
+            setAmountOfCorrectAnswers={setAmountOfCorrectAnswers}
+            setShowEndScreen={setShowEndScreen}
+          />
+          )
+      } else if(quizData.length  < 1){
+        return (
+          <SetupQuiz 
+            questionAmount={questionAmount}
+            setQuestionAmount={setQuestionAmount}
+            category={category}
+            setCategory={setCategory}
+            difficulty={difficulty}
+            setDifficulty={setDifficulty}
+            handleData={handleData}
+          />
+        )
+      }
     }
+
+    
   }
 
 
   const resetGame = () => {
-    console.log("reset the game func")
-  }
-
-
-  // useEffect(() => {
-  //   console.log(quizData[currentQuestionIndex])
-  // }, [quizData])
-
-  
+    window.location.reload()
+  } 
 
 
   return (

@@ -22,9 +22,9 @@ export const QuizQuestions = ({quizData, currentQuestionIndex, setCurrentQuestio
     const checkAnswer = answer => {
         if(correct_answer === answer) {
             setAmountOfCorrectAnswers(amountOfCorrectAnswers + 1)
-            setCurrentQuestionIndex(currentQuestionIndex + 1)
+            nextQuestionLogic()
         } else {
-            setCurrentQuestionIndex(currentQuestionIndex + 1)
+            nextQuestionLogic()
         }
     }
 
@@ -37,13 +37,8 @@ export const QuizQuestions = ({quizData, currentQuestionIndex, setCurrentQuestio
         }
     }
 
-    React.useEffect(() => {
-        // console.log(currentQuestionData)
-        console.log(correct_answer, currentQuestionIndex)
-    }, [currentQuestionIndex])
-
     return (
-        <section className="quiz-questions">
+        <section className="quiz-questions center">
             <div className="quiz-questions__correct-answers">
                 <span>Correct Answers : </span>
                 <span className="amt-correct">{amountOfCorrectAnswers}</span>

@@ -6,7 +6,7 @@ const SetupQuiz = ({questionAmount, setQuestionAmount, category, setCategory, di
     const handleSubmit = e => e.preventDefault()
 
     return (
-        <section className="setup-quiz">
+        <section className="setup-quiz center">
             <h1 className="setup-quiz__header">Setup Quiz</h1>  
             <form className="setup-quiz__form" onSubmit={(e) => handleSubmit(e)}>
 
