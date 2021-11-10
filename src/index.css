@@ -126,3 +126,43 @@ main {
   margin:0 auto 0 auto;
   cursor: pointer;
 }
+
+
+
+
+
+
+
+
+
+
+.end-screen-container {
+  background-color: #1a1a1a94;
+  position: absolute;
+  z-index:999;
+  width:100vw;
+  height:100vh;
+  left:0;
+  top:0;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.end-screen {
+  background:#fff;
+  text-align: center;
+  padding:3rem 3rem;
+  font-size:1.75rem;
+  filter:drop-shadow(2px 2px 10px #36363628);
+}
+
+.end-screen p {
+  margin:0.5rem 0 0.75rem 0;  
+}
+
+.play-agin-btn {
+  padding:0.5rem;
+  font-size:1rem;
+  cursor: pointer;
+}

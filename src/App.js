@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { QuizQuestions } from './QuizQuestions';
 import SetupQuiz from "./SetupQuiz"
-
+import EndScreen from './EndScreen';
 
 
 
@@ -13,7 +13,6 @@ function App() {
   const [quizData, setQuizData] = useState([])
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [amountOfCorrectAnswers, setAmountOfCorrectAnswers] = useState(0);
-  // amt of correct answers 
   // https://opentdb.com/api.php?amount=10&category=21&difficulty=easy&type=multiple
   const baseUrl = "https://opentdb.com/api.php?"
   const amountUrl = `amount=${questionAmount}&`
@@ -68,7 +67,7 @@ function App() {
           handleData={handleData}
         />
       )
-    } else if(quizData.length === currentQuestionIndex) {
+    } else if(currentQuestionIndex >= quizData.length - 1) {
       console.log(`
       Now in the DOM place a congratz msg eg:
 
@@ -80,6 +79,11 @@ function App() {
   }
 
 
+  const resetGame = () => {
+    console.log("reset the game func")
+  }
+
+
   // useEffect(() => {
   //   console.log(quizData[currentQuestionIndex])
   // }, [quizData])
@@ -87,6 +91,7 @@ function App() {
 
   return (
     <main>
+      {/* {currentQuestionIndex >= quizData.length ? <EndScreen resetGame={resetGame}/> : ""} */}
       {whatToRender()}
     </main>
   );

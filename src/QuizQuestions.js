@@ -30,8 +30,8 @@ export const QuizQuestions = ({quizData, currentQuestionIndex, setCurrentQuestio
 
     React.useEffect(() => {
         // console.log(currentQuestionData)
-        console.log(correct_answer)
-    }, [])
+        console.log(correct_answer, currentQuestionIndex)
+    }, [currentQuestionIndex])
 
     return (
         <section className="quiz-questions">
